@@ -1,0 +1,58 @@
+export const demoProducts = [
+  {
+    id: '1',
+    name: 'Apple',
+    description: '1 item, Fresh',
+    price: '4.99',
+    image: 'https://cdn-icons-png.flaticon.com/512/415/415733.png',
+  },
+  {
+    id: '2',
+    name: 'Banana',
+    description: '1 item, Fresh',
+    price: '2.99',
+    image: 'https://cdn-icons-png.flaticon.com/512/590/590685.png',
+  },
+  {
+    id: '3',
+    name: 'Bread',
+    description: '1 item, Fresh',
+    price: '3.49',
+    image: 'https://cdn-icons-png.flaticon.com/512/3075/3075977.png',
+  },
+  {
+    id: '4',
+    name: 'Milk',
+    description: '1 item, Fresh',
+    price: '2.79',
+    image: 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png',
+  },
+  {
+    id: '5',
+    name: 'Water Bottle',
+    description: '1 item, Fresh',
+    price: '1.50',
+    image: 'https://cdn-icons-png.flaticon.com/512/2974/2974669.png',
+  },
+  {
+    id: '6',
+    name: 'Red Bull',
+    description: '1 item, Fresh',
+    price: '3.99',
+    image: 'https://cdn-icons-png.flaticon.com/512/1046/1046782.png',
+  },
+  {
+    id: '7',
+    name: 'Tomato',
+    description: '1 item, Fresh',
+    price: '1.25',
+    image: 'https://cdn-icons-png.flaticon.com/512/135/135620.png',
+  },
+  {
+    id: '8',
+    name: 'Carrot',
+    description: '1 item, Fresh',
+    price: '1.10',
+    image: 'https://cdn-icons-png.flaticon.com/512/135/135645.png',
+  },
+];
