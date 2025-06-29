@@ -6,6 +6,7 @@ import { green } from 'react-native-reanimated/lib/typescript/Colors';
 import { useCart } from '../../Context/CartContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import UpperTab from '../../navigation/UpperTab';
+import MonthYearPicker from '../../components/Common/Calendar';
 
 export default function MainTab() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -44,28 +45,19 @@ export default function MainTab() {
     { uri: 'https://static.vecteezy.com/system/resources/previews/013/757/778/non_2x/mexican-food-delicious-tacos-photo.jpg' },
 
   ];
+
   const tabOptions = ['Daily', 'Calendar', 'Monthly', 'Summary', 'Description'];
   const [activeTab, setActiveTab] = useState('Daily');
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const animatedValues = useRef(
     tabOptions.map((_, index) => new Animated.Value(index === 0 ? 1 : 0.5))
   ).current;
-
-  const animateTabs = (newIndex: number) => {
-    animatedValues.forEach((anim, index) => {
-      Animated.timing(anim, {
-        toValue: index === newIndex ? 1 : 0.5,
-        duration: 250,
-        useNativeDriver: true,
-      }).start();
-    });
-    setActiveTab(tabOptions[newIndex]);
-  };
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
-      <View style={{  backgroundColor: '#53B175', width: width }}>
+      <View style={{ backgroundColor: '#53B175', width: width }}>
         <SafeAreaView>
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#53B175', margin: 10 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10, paddingVertical: 5, backgroundColor: '#53B175', margin: 10 }}>
             <TouchableOpacity>
               <EvilIcons name="search" size={30} color="white" />
             </TouchableOpacity>
@@ -83,12 +75,17 @@ export default function MainTab() {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{ height: height/20, alignItems: 'center', justifyContent: 'center', width: width,paddingHorizontal:10}}>
-            <Text style={{ fontSize: 14, color: 'white', }}>
-              Jun 2025
-            </Text>
+          <View style={{ height: height / 40, alignItems: 'center', justifyContent: 'center', width: width}}>
+            <MonthYearPicker
+              onDateChange={(newDate: Date) => {
+                setSelectedDate(newDate);
+              }}
+              initialDate={new Date()} // Current date
+              textColor="white"
+              selectedItemColor="#3498db"
+            />
           </View>
-          <View style={{ height: height,}}>
+          <View style={{ height: height, }}>
             <UpperTab />
           </View>
         </SafeAreaView>
@@ -97,30 +94,5 @@ export default function MainTab() {
   )
 }
 const styles = StyleSheet.create({
-  tabButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: 'transparent',
-  },
-  activeTabButton: {
-    borderBottomColor: 'white',
-  },
-  tabText: {
-    fontSize: 14,
-    color: 'white',
-  },
-  activeTabText: {
-    color: 'white',
-    fontWeight: 'semibold',
-  },
-  content: {
-    marginTop: 20,
-    paddingHorizontal: 16,
-  },
-  contentText: {
-    fontSize: 18,
-    color: '#333',
-  },
 
 });
