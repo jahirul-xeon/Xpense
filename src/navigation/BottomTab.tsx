@@ -36,7 +36,7 @@ const BottomTabs = () => (
         <Tab.Screen name={ScreenName.STATS_TAB} component={ExploreTab} />
         {/* <Tab.Screen name={ScreenName.FAVOURITE_TAB} component={FavouriteTab} /> */}
         <Tab.Screen
-            name={ScreenName.ACCOUNTS_TAB} component={() => <FavouriteTab screenKey="page9" />}
+            name={ScreenName.ACCOUNTS_TAB} component={() => <FavouriteTab />}
         />
         <Tab.Screen name={ScreenName.MORE_TAB} component={AccountTab} />
     </Tab.Navigator>

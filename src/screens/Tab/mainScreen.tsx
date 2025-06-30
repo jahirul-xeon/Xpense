@@ -7,6 +7,7 @@ import { useCart } from '../../Context/CartContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import UpperTab from '../../navigation/UpperTab';
 import MonthYearPicker from '../../components/Common/Calendar';
+import AddIcon from '../../components/ui/AddIcon';
 
 export default function MainTab() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -75,7 +76,7 @@ export default function MainTab() {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{ height: height / 40, alignItems: 'center', justifyContent: 'center', width: width}}>
+          <View style={{ height: height / 40, alignItems: 'center', justifyContent: 'center', width: width }}>
             <MonthYearPicker
               onDateChange={(newDate: Date) => {
                 setSelectedDate(newDate);
@@ -90,6 +91,7 @@ export default function MainTab() {
           </View>
         </SafeAreaView>
       </View>
+      <AddIcon />
     </View>
   )
 }

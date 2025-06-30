@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
-  Modal,
   StyleSheet,
   FlatList,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { getAllTransactions, TransactionRow } from '../../database/schema/schema';
+import { Modal, Portal } from 'react-native-paper';
 type MonthYearPickerProps = {
   onDateChange?: (date: Date) => void;
   initialDate?: Date;
@@ -30,6 +31,24 @@ const MonthYearPicker: React.FC<MonthYearPickerProps> = ({
   const [currentDate, setCurrentDate] = useState<Date>(initialDate);
   const [showMonthPicker, setShowMonthPicker] = useState<boolean>(false);
   const [showYearPicker, setShowYearPicker] = useState<boolean>(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [transactions, setTransactions] = useState<TransactionRow[]>([]);
+
+  const [visible, setVisible] = React.useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const fetchData = () => {
+    const year = selectedDate.getFullYear();
+    const month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+    const period = `${year}-${month}`;
+    const data = getAllTransactions(period);
+    setTransactions(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [selectedDate]);
 
   const months: string[] = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   const currentYear: number = currentDate.getFullYear();
@@ -65,7 +84,7 @@ const MonthYearPicker: React.FC<MonthYearPickerProps> = ({
       {/* Main Picker View */}
       <View style={styles.pickerContainer}>
         <TouchableOpacity
-          style={styles.arrowButton }
+          style={styles.arrowButton}
           onPress={() => navigateMonth('prev')}
         >
           <AntDesign name="left" size={20} color="white" />
@@ -89,8 +108,9 @@ const MonthYearPicker: React.FC<MonthYearPickerProps> = ({
       </View>
 
       {/* Month Selection Modal */}
-      <Modal visible={showMonthPicker} transparent animationType="fade">
-        <View style={styles.modalOverlay}>
+      {/* Month Selection Modal */}
+      <Portal>
+        <Modal visible={showMonthPicker} onDismiss={() => setShowMonthPicker(false)} contentContainerStyle={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Select Month</Text>
             <View style={styles.monthGrid}>
@@ -125,12 +145,12 @@ const MonthYearPicker: React.FC<MonthYearPickerProps> = ({
               </TouchableOpacity>
             </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      </Portal>
 
-      {/* Year Selection Modal */}
-      <Modal visible={showYearPicker} transparent animationType="fade">
-        <View style={styles.modalOverlay}>
+      {/* Year Picker Modal */}
+      <Portal>
+        <Modal visible={showYearPicker} onDismiss={() => setShowYearPicker(false)} contentContainerStyle={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Select Year</Text>
             <FlatList
@@ -162,8 +182,9 @@ const MonthYearPicker: React.FC<MonthYearPickerProps> = ({
               <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      </Portal>
+
     </View>
   );
 };
@@ -171,7 +192,7 @@ const MonthYearPicker: React.FC<MonthYearPickerProps> = ({
 // Styles
 const styles = StyleSheet.create({
   container: {
-    height:"auto",
+    height: "auto",
     width: '100%',
   },
   pickerContainer: {
@@ -194,17 +215,17 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   modalOverlay: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
+    margin: 20, // or padding, so some of the background is clickable
+    borderRadius: 12,
     backgroundColor: 'rgba(0,0,0,0)',
+    width: '80%',
+    maxHeight: '70%',
   },
   modalContent: {
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 20,
-    width: '80%',
-    maxHeight: '70%',
+
   },
   modalTitle: {
     fontSize: 18,

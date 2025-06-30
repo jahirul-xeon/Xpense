@@ -1,35 +1,59 @@
-import * as SQLite from 'expo-sqlite';
+import { openDatabaseSync, SQLiteRunResult } from 'expo-sqlite';
 
-const db = SQLite.openDatabaseSync('money_manager.db'); 
+const db = openDatabaseSync('xpense.db');
 
-export const setupDatabase = () => {
-  db.execAsync(`
-    CREATE TABLE IF NOT EXISTS accounts (
-      account_id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      currency TEXT NOT NULL
-    );
+export const getDb = () => db;
 
-    CREATE TABLE IF NOT EXISTS categories (
-      category_id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      parent_id INTEGER,
-      type TEXT CHECK(type IN ('Income', 'Expense', 'Transfer'))
-    );
-
-    CREATE TABLE IF NOT EXISTS transactions (
-      transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
-      date TEXT NOT NULL,
-      from_account_id INTEGER,
-      to_account_id INTEGER,
-      category_id INTEGER,
-      note TEXT,
-      description TEXT,
-      amount REAL NOT NULL,
-      currency TEXT NOT NULL,
-      type TEXT CHECK(type IN ('Income', 'Expense', 'Transfer'))
-    );
-  `);
+export type TransactionRow = {
+  id: number;
+  period: string;
+  account: string;
+  category: string;
+  subcategory: string;
+  note: string;
+  bdt: number;
+  type: 'Income' | 'Expense';
+  description: string;
+  amount: number;
+  currency: string;
 };
 
-export default db;
+export const createTable = async () => {
+  try {
+    await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS transactions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        period TEXT NOT NULL,
+        account TEXT NOT NULL,
+        category TEXT NOT NULL,
+        subcategory TEXT,
+        note TEXT,
+        bdt INTEGER NOT NULL,
+        type TEXT NOT NULL,
+        description TEXT,
+        amount REAL NOT NULL,
+        currency TEXT NOT NULL
+      );
+    `);
+    console.log('✅ Table created.');
+  } catch (error) {
+    console.error('❌ Failed to create table:', error);
+  }
+};
+
+
+// Load all transactions filtered by period ("YYYY-MM")
+export const getAllTransactions = (period?: string): TransactionRow[] => {
+  try {
+    const results = db.getAllSync(
+      period
+        ? `SELECT * FROM transactions WHERE period = ? ORDER BY id DESC`
+        : `SELECT * FROM transactions ORDER BY id DESC`,
+      period ? [period] : []
+    );
+    return results as TransactionRow[];
+  } catch (err) {
+    console.error('❌ Error fetching transactions:', err);
+    return [];
+  }
+};
