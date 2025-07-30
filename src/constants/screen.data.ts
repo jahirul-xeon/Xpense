@@ -6,13 +6,14 @@ export const ScreenName = {
     MORE_TAB: "More",
     STATS_TAB: "Stats",
     ACCOUNTS_TAB: "Accounts",
-    MAIN_TAB: getTodayDate(), // Dynamic name based on today's date
-    BOTTOM_TAB: "BottomTab",
+    MAIN_TAB: getTodayDate(), 
+    BOTTOM_TAB: "Trans.",
     DAILY_TAB: "Daily",
     CALENDAR_TAB: "Calendar",
     MONTHLY_TAB: "Monthly",
     SUMMARY_TAB: "Summary", 
     DESCRIPTION_TAB: "Description",
-    UPPER_TAB: "UpperTab",          
+    UPPER_TAB: "UpperTab",
+    INSERT_PAGE: "InsertPage",          
 
 }
