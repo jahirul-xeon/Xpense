@@ -1,12 +1,17 @@
 import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import React from 'react';
+import React, { use } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
+import { ScreenName } from '../../constants/screen.data';
 
 const { width, height } = Dimensions.get('window');
 
+
+
 export default function AddIcon() {
+    const navigation = useNavigation();
     return (
-        <TouchableOpacity style={styles.fab} activeOpacity={0.9}>
+        <TouchableOpacity style={styles.fab} activeOpacity={0.9} onPress={() => navigation.navigate(ScreenName.INSERT_PAGE as never)}>
             <Ionicons name="add" size={24} color="white" />
         </TouchableOpacity>
     );
@@ -24,8 +29,8 @@ const styles = StyleSheet.create({
         position: "absolute",
         right: width * 0.03,
         bottom: height * 0.03,
-        elevation: 5, 
-        shadowColor: "#000", 
+        elevation: 5,
+        shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.3,
         shadowRadius: 2,

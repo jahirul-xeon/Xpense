@@ -1,5 +1,6 @@
+// Daily.tsx
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 import IncomeExpenseCard from '../../components/ui/TotalSummary';
 import StickySectionList from '../../components/ui/ListOfExpenseIncome';
 import { getDb } from '../../database/schema/schema';
@@ -32,12 +33,14 @@ type Section = {
   }[];
 };
 
-export default function Daily() {
+export default function Daily({ selectedDate }: { selectedDate: Date }) {
   const [sections, setSections] = useState<Section[]>([]);
 
   useEffect(() => {
-    loadTransactionsGroupedByDate();
-  }, []);
+    if (selectedDate) {
+      loadTransactionsGroupedByDate();
+    }
+  }, [selectedDate]);
 
   const loadTransactionsGroupedByDate = async () => {
     try {
@@ -46,9 +49,20 @@ export default function Daily() {
         `SELECT * FROM transactions ORDER BY period DESC`
       ) as TransactionRow[];
 
+      const selectedMonth = selectedDate.getMonth();
+      const selectedYear = selectedDate.getFullYear();
+
+      const filteredRows = rawRows.filter(row => {
+        const rowDate = new Date(row.period);
+        return (
+          rowDate.getMonth() === selectedMonth &&
+          rowDate.getFullYear() === selectedYear
+        );
+      });
+
       const grouped: { [date: string]: Section } = {};
 
-      for (const row of rawRows) {
+      for (const row of filteredRows) {
         const date = row.period;
         const isIncome = row.type === 'Income';
         const amount = row.amount;
@@ -72,7 +86,7 @@ export default function Daily() {
           amount,
           isIncome,
           Category: row.category || 'Unknown',
-          note: row.note
+          note: row.note,
         });
 
         if (isIncome) {
@@ -82,8 +96,7 @@ export default function Daily() {
         }
       }
 
-      const resultSections = Object.values(grouped);
-      setSections(resultSections);
+      setSections(Object.values(grouped));
     } catch (error) {
       console.error('Failed to load transactions:', error);
     }
@@ -91,6 +104,8 @@ export default function Daily() {
 
   const totalIncome = sections.reduce((sum, s) => sum + s.income, 0);
   const totalExpense = sections.reduce((sum, s) => sum + s.expense, 0);
+  if (!selectedDate) return <View><Text>Loading...</Text></View>;
+
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white', paddingBottom: 200 }}>

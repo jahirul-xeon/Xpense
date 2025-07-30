@@ -10,7 +10,7 @@ import { ScreenName } from '../constants/screen.data';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function UpperTab() {
+export default function UpperTab({ selectedDate }: { selectedDate: Date }) {
   const { width } = useWindowDimensions();
 
   return (
@@ -42,9 +42,11 @@ export default function UpperTab() {
         tabBarInactiveTintColor: 'rgba(255,255,255,0.7)',
       }}
     >
-      <Tab.Screen name={ScreenName.DAILY_TAB} component={Daily} options={{
+      <Tab.Screen name={ScreenName.DAILY_TAB} options={{
         tabBarLabelStyle: { paddingHorizontal: 0 },
-      }} />
+      }}>
+        {() => <Daily selectedDate={selectedDate} />}
+      </Tab.Screen>
       <Tab.Screen name={ScreenName.CALENDAR_TAB} component={Calendar} />
       <Tab.Screen name={ScreenName.MONTHLY_TAB} component={Monthly} />
       <Tab.Screen name={ScreenName.SUMMARY_TAB} component={Summary} />
