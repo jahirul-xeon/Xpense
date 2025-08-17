@@ -6,8 +6,10 @@ Track your **monthly expenses** and **transactions** with a clean, fast, and rel
 
 ---
 ## 📹 App ScreenShot
-![App Screenshot](./demo.png)
-![App Screenshot](./demo1.png)
+
+| ![App Screenshot](./demo.png) | ![App Screenshot](./demo1.png) |
+|-------------------------------|-------------------------------|
+
 
 ## 📹 Video Demo
 
