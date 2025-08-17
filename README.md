@@ -5,13 +5,13 @@ Track your **monthly expenses** and **transactions** with a clean, fast, and rel
 > Tip: This README includes a **Video Demo** section with plug‑and‑play Markdown/HTML snippets so you can showcase your app instantly.
 
 ---
+## 📹 App ScreenShot
+![App Screenshot](./demo.png)
+![App Screenshot](./demo1.png)
 
 ## 📹 Video Demo
 
-Choose one of the options below and replace the placeholders:
-[![Watch the demo](./docs/demo.png)]
-
-<video src="./docs/demo.mp4" width="700" controls playsinline></video>
+<video src="./demo.mp4" width="700" controls playsinline></video>
 
 
 ## ✨ Features
