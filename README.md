@@ -13,7 +13,7 @@ Track your **monthly expenses** and **transactions** with a clean, fast, and rel
 
 ## 📹 Video Demo
 
-[🎬 Watch the demo](./demo.mp4)
+▶️ [Watch on YouTube](https://youtube.com/shorts/ebdxbU5-Sp8?feature=share)
 
 
 
