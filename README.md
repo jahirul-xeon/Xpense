@@ -114,19 +114,6 @@ These can live in a settings screen and/or `.env` file as needed.
 
 ---
 
-## 🧪 Testing (optional)
-
-- **Jest** + **React Native Testing Library**
-- **Detox** for E2E (Expo Dev Client supported)
-
----
-
-## 📜 Changelog
-
-See [CHANGELOG.md](./CHANGELOG.md) (create if needed).
-
----
-
 ## 🤝 Contributing
 
 1. Fork
