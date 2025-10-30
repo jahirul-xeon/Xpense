@@ -32,12 +32,11 @@ Track your **monthly expenses** and **transactions** with a clean, fast, and rel
 
 ## 🛠 Tech Stack
 
-- **React Native** (Expo or Bare)
+- **React Native** (Expo)
 - **React Navigation**
-- **Context API / Redux**
-- **AsyncStorage / SQLite**
-- **TypeScript** (if applicable)
-- Optional: **GraphQL/REST** backend
+- **Context API**
+- **SQLite**
+- **TypeScript**
 
 ---
 
