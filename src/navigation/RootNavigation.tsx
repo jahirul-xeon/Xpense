@@ -25,15 +25,6 @@ export default function RootNavigator() {
             <Stack.Screen
                 name={ScreenName.INSERT_PAGE}
                 component={InsertPage}
-                options={{
-                    headerShown: true, title: 'Insert Data',
-                    headerBackground: () => <View style={{ backgroundColor: '#53B175', flex: 1 }} />,
-                    headerRight: () => (<TouchableOpacity >
-                        <AntDesign name="staro" size={24} color="white" />
-                    </TouchableOpacity>),
-                    headerTitleStyle: { color: 'white' }, 
-                    headerTintColor: 'white'
-                }}
             />
 
         </Stack.Navigator>

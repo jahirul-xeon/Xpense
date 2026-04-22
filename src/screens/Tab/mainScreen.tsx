@@ -28,7 +28,7 @@ export default function MainTab() {
             </View>
             <View style={{ flexDirection: 'row', gap: 20 }}>
               <TouchableOpacity>
-                <AntDesign name="staro" size={24} color="white" />
+                <AntDesign name="star" size={24} color="white" />
               </TouchableOpacity>
               <TouchableOpacity>
                 <Ionicons name="options-outline" size={24} color="white" />

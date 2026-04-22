@@ -13,12 +13,12 @@ const BottomTabs = () => (
     <Tab.Navigator
         screenOptions={({ route }) => ({
             headerShown: false,
-            tabBarIcon: ({ focused, color="#55847A", size }) => {
+            tabBarIcon: ({ focused, color = "#55847A", size }) => {
                 switch (route.name) {
                     case ScreenName.MAIN_TAB:
                         return <SimpleLineIcons name="notebook" size={24} color={color} />;
                     case ScreenName.STATS_TAB:
-                        return <AntDesign name="linechart" size={24} color={color} />;
+                        return <AntDesign name="line-chart" size={24} color={color} />;
                     case ScreenName.ACCOUNTS_TAB:
                         return <Octicons name="database" size={24} color={color} />;
                     case ScreenName.MORE_TAB:
